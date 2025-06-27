@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Happy Birthday!</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- External CSS -->
+  <link rel="stylesheet" href="style.css">
+
+  <!-- Fancy Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+</head>
+
+<body>
+  <!-- 🎉 Confetti Background -->
+  <canvas id="confetti-canvas"></canvas>
+
+  <!-- 🎂 Countdown Section with Cake -->
+  <section id="countdown">
+    <div class="fancy-cake">
+      <div class="cake-layer layer-bottom"></div>
+      <div class="cake-layer layer-middle"></div>
+      <div class="cake-layer layer-top"></div>
+      <div class="icing"></div>
+      <div class="cherry"></div>
+
+      <div class="candles">
+        <div class="candle"><div class="flame"></div></div>
+        <div class="candle"><div class="flame"></div></div>
+        <div class="candle"><div class="flame"></div></div>
+      </div>
+
+      <div class="cake-caption">A Big Cake For Hebu 🎉</div>
+    </div>
+
+    <h2>Countdown to Miss Hebu</h2>
+    <div id="timer">
+      <span id="days">1</span> Days
+      <span id="hours">0</span> Hours
+      <span id="minutes">0</span> Minutes
+      <span id="seconds">0</span> Seconds
+    </div>
+  </section>
+
+  <!-- 🌟 Birthday Person Photo -->
+  <section id="photo">
+    <img src="image/image4.jpg" alt="Birthday Person">
+    <h1 class="caption">Will be by your side ! - Happy Birthday 🐷 </h1>
+  </section>
+
+  <!-- 💬 Reveal Messages Button -->
+  <div style="text-align:center; margin-top: 40px;">
+    <a href="messages.html" class="reveal-btn">🏱 Click to Reveal Messages 📬</a>
+  </div>
+
+ 
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/confetti-js@0.0.18/dist/index.min.js"></script>
+  <script>
+    const confetti = new ConfettiGenerator({
+      target: 'confetti-canvas',
+      max: 120,
+      size: 1,
+      animate: true,
+      props: ['circle', 'square', 'triangle'],
+      colors: [[255, 215, 0], [255, 255, 255]],
+      clock: 25,
+    });
+    confetti.render();
+
+    // Set countdown to tomorrow
+    const today = new Date();
+    const birthdayDate = new Date(today.getFullYear(), today.getMonth(), today.getDate() + 1, 0, 0, 0).getTime();
+
+    const countdown = setInterval(() => {
+      const now = new Date().getTime();
+      const distance = birthdayDate - now;
+
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance / (1000 * 60 * 60)) % 24);
+      const minutes = Math.floor((distance / 1000 / 60) % 60);
+      const seconds = Math.floor((distance / 1000) % 60);
+
+      document.getElementById("days").innerText = days;
+      document.getElementById("hours").innerText = hours;
+      document.getElementById("minutes").innerText = minutes;
+      document.getElementById("seconds").innerText = seconds;
+
+      if (distance < 0) {
+        clearInterval(countdown);
+        document.getElementById("timer").innerHTML = "🎉 It's HEBU's Birthday Today!";
+      }
+    }, 1000);
+  </script>
+</body>
+
+</html>
